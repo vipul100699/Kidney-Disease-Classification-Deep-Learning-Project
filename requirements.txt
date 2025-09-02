@@ -1,19 +1,41 @@
+# Core ML Framework (Install First)
+numpy==2.1.3
 tensorflow==2.20.0
-pandas
-dvc
-mlflow==2.16.2
-notebook
-numpy
-matplotlib
-seaborn
+
+# Scientific Computing
+scipy==1.14.1
+
+# Data Processing & Analysis
+pandas==2.2.3
+
+# Data Visualization
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# Machine Learning
+scikit-learn==1.5.2
+
+# MLOps Tools
+mlflow==2.16.0
+dvc==3.56.0
+
+# Jupyter Environment
+notebook==7.2.2
+
+# Utility & Processing
+joblib==1.4.2
 python-box==7.2.0
-pyYAML
-tqdm
+pyYAML==6.0.2
+tqdm==4.67.0
 ensure==1.0.4
-joblib
-types-pyYAML
-scipy
-Flask
-Flask-Cors
-gdown
+types-pyYAML==6.0.12.20250822
+
+# File Operations
+gdown==5.2.0
+
+# Web Framework
+Flask==3.0.3
+Flask-Cors==5.0.0
+
+# Install project as editable package (keep at end)
 -e .
