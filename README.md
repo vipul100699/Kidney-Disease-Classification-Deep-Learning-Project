@@ -34,3 +34,18 @@ myenv\Scripts\activate.bat
 ```bash
 pip install -r requirements.txt
 ```
+
+
+## cmd
+-mlflow ui
+
+### dagshub
+[dagshub] (https://dagshub.com)
+
+import dagshub
+dagshub.init(repo_owner='vipul100699', repo_name='Kidney-Disease-Classification-Deep-Learning-Project', mlflow=True)
+
+import mlflow
+with mlflow.start_run():
+  mlflow.log_param('parameter name', 'value')
+  mlflow.log_metric('metric name', 1)

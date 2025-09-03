@@ -14,3 +14,12 @@ prepare_base_model:
 training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model.h5
+
+evaluation:
+  root_dir: artifacts/model_evaluation
+  model_path: artifacts/training/model.h5
+  training_data: artifacts/data_ingestion/kidney-ct-scan-image
+  mlflow_uri: https://dagshub.com/vipul100699/Kidney-Disease-Classification-Deep-Learning-Project.mlflow
+  all_params: params.yaml
+  params_image_size: [224, 224, 3]
+  params_batch_size: 16
