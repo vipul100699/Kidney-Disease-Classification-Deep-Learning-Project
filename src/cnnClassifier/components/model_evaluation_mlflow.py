@@ -6,6 +6,7 @@ import mlflow
 import mlflow.keras
 from urllib.parse import urlparse
 import dagshub
+from datetime import datetime
 from cnnClassifier.entity.config_entity import EvaluationConfig
 from cnnClassifier.utils.common import read_yaml, create_directories, save_json
 
@@ -49,7 +50,11 @@ class Evaluation:
         self.save_score()
 
     def save_score(self):
-        scores = {"Loss": self.score[0], "Accuracy": self.score[1]}
+        scores = {
+            "Loss": self.score[0],
+            "Accuracy": self.score[1],
+            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
         save_json(path=Path("scores.json"), data=scores)
 
     def log_into_mlflow(self):
