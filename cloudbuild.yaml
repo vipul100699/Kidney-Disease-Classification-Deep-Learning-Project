@@ -1,0 +1,50 @@
+# cloudbuild.yaml - GCP equivalent of Github Actions main.yaml
+
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/$PROJECT_ID/kidney-classifier:$COMMIT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/kidney-classifier:latest',
+      '.'
+    ]
+  
+  # Push the container image to the Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/kidney-classifier:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/kidney-classifier:latest']
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'kidney-classifier'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/kidney-classifier:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+      - '--memory'
+      - '2Gi'
+      - '--cpu'
+      - '1'
+      - 'max-instances'
+      - '10'
+      - '--set-env-vars'
+      - 'PYTHONPATH=/app'
+
+# Use high-CPU machines for faster build
+options:
+  machineType: 'E2_HIGHCPU_8'
+
+# Build Timeout
+timeout: 1200s
